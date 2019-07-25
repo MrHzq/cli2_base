@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>cli2_base</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <% htmlWebpackPlugin.options.cdnConfig.forEach(function(item){
+        if(item.css){ %>
+        <link href="<%= item.css %>" rel="stylesheet" />
+        <% }}) %>
+        <title>cli2_base</title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <% htmlWebpackPlugin.options.cdnConfig.forEach(function(item){
+        if(item.js && !htmlWebpackPlugin.options.onlyCss){ %>
+        <script type="text/javascript" src="<%= item.js %>"></script>
+        <% }}) %>
+        <!-- built files will be auto injected -->
+    </body>
 </html>
