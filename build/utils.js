@@ -104,11 +104,21 @@ exports.createNotifierCallback = () => {
 }
 
 /**------------------ 下面是新增 ------------------*/
-// build/utils.js 国内免费cdn镜像源
-exports.cdnBaseHttp = 'https://cdn.staticfile.org'
 
-//  build/utils.js external配置
-exports.externalConfig = [
+// 国内免费cdn镜像源
+const cdnBaseHttp = 'https://cdn.staticfile.org'
+
+// 是否使用cnd的js，默认：dev不使用，prod使用
+const isExternalJs = process.env.NODE_ENV === 'production'
+// process.env.NODE_ENV === 'production'
+
+/* cdn配置
+name：模块名称，与package.json同名，如：element-ui
+scope：模块作用域命名，对应window里面挂载的变量名称，如：ELEMENT
+js：js地址，是从版本号后面开始的，如：完整js cnd为 https://cdn.staticfile.org/element-ui/2.4.11/index.js，则应该填写的为：index.js
+css：css地址，是从版本号后面开始的，如：完整css cnd为 https://cdn.staticfile.org/element-ui/2.4.11/theme-chalk/index.css，则应该填写的为：theme-chalk/index.css
+*/
+const cdnConfig = [
     { name: 'vue', scope: 'Vue', js: 'vue.min.js' },
     { name: 'vue-router', scope: 'VueRouter', js: 'vue-router.min.js' },
     { name: 'axios', scope: 'axios', js: 'axios.min.js' },
@@ -116,12 +126,13 @@ exports.externalConfig = [
         name: 'element-ui',
         scope: 'ELEMENT',
         js: 'index.js',
-        css: 'theme-chalk/index.css'
+        css: 'theme-chalk/index.css',
+        cndHttp: 'https://cdn.bootcss.com'
     }
 ]
 
-// build/utils.js 获取模块版本号
-exports.getModulesVersion = () => {
+// 获取模块版本号
+function getModulesVersion() {
     let mvs = {}
     let regexp = /^npm_package_.{0,3}dependencies_/gi
     for (let m in process.env) {
@@ -137,27 +148,39 @@ exports.getModulesVersion = () => {
     return mvs
 }
 
-// build/utils.js
-exports.getExternalModules = config => {
-    let externals = {} // 结果
-    let dependencieModules = this.getModulesVersion() // 获取全部的模块和版本号
-    config = config || this.externalConfig // 默认使用utils下的配置
+// 1、生成完成的cdnConfig；2、处理忽略的资源
+function getExternalModules(config) {
+    let externalModules = {} // 要忽略的资源，如 {vue: 'Vue'}
+    let dependencieModules = getModulesVersion() // 获取全部的模块和版本号
+    config = config || cdnConfig // 默认使用utils下的配置
     config.forEach(item => {
         // 遍历配置
         if (item.name in dependencieModules) {
             let version = dependencieModules[item.name]
-            // 拼接css 和 js 完整链接
+            let currCdnHttp = item.cndHttp || cdnBaseHttp
+            // 拼接完整 css 的链接
             item.css =
                 item.css &&
-                [this.cdnBaseHttp, item.name, version, item.css].join('/')
+                [currCdnHttp, item.name, version, item.css].join('/')
+            // 拼接完整 js 的链接
             item.js =
-                item.js &&
-                [this.cdnBaseHttp, item.name, version, item.js].join('/')
-            externals[item.name] = item.scope // 为打包时准备
+                item.js && [currCdnHttp, item.name, version, item.js].join('/')
+            // 新增要忽略的资源
+            externalModules[item.name] = item.scope
         } else {
-            throw new Error('相关依赖未安装，请先执行npm install ' + item.name)
+            throw new Error(item.name + ' 未安装，请执行cnpm i -S' + item.name)
         }
     })
-    return externals
+    // 根据isExternalJs，判断是否真正要忽略
+    return isExternalJs ? externalModules : {}
 }
+
+// 用在 webpack.base.conf.js 里面
+exports.externalModules = getExternalModules()
+
+// 用在 webpack.dev.conf.js/webpack.prod.conf.js 里面
+exports.cdnConfig = cdnConfig
+
+// 用在 webpack.dev.conf.js/webpack.prod.conf.js 里面
+exports.isExternalJs = isExternalJs
 /**------------------ 上面是新增 ------------------*/

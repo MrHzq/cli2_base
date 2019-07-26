@@ -14,10 +14,6 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-// build/webpack.dev.conf.js  获取cdn配置
-const externalConfig = JSON.parse(JSON.stringify(utils.externalConfig)) // 读取配置
-utils.getExternalModules(externalConfig) // 获取到合适的路径（引用类型，自动改变）
-
 const devWebpackConfig = merge(baseWebpackConfig, {
     module: {
         rules: utils.styleLoaders({
@@ -70,8 +66,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             filename: 'index.html',
             template: 'index.html',
             inject: true,
-            cdnConfig: externalConfig, // cdn配置
-            onlyCss: false //dev下只加载css
+            cdnConfig: utils.cdnConfig, // cdn配置
+            isExternalJs: utils.isExternalJs //是否加载js，dev下默认不加载
         }),
         // new WebpackCdnPlugin({
         //     modules: [

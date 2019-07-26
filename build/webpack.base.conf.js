@@ -104,5 +104,7 @@ module.exports = {
         net: 'empty',
         tls: 'empty',
         child_process: 'empty'
-    }
+    },
+    // 构建时忽略的资源
+    externals: utils.externalModules
 }

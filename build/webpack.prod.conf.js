@@ -13,12 +13,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = require('../config/prod.env')
 
-// build/webpack.prod.conf.js 获取cdn配置
-const externalConfig = JSON.parse(JSON.stringify(utils.externalConfig)) // 读取配置
-const externalModules = utils.getExternalModules(externalConfig) // 获取到合适路径和忽略模块
-
 const webpackConfig = merge(baseWebpackConfig, {
-    externals: externalModules, // 构建时忽略的资源
     module: {
         rules: utils.styleLoaders({
             sourceMap: config.build.productionSourceMap,
@@ -78,8 +73,8 @@ const webpackConfig = merge(baseWebpackConfig, {
             },
             // necessary to consistently work with multiple chunks via CommonsChunkPlugin
             chunksSortMode: 'dependency',
-            cdnConfig: externalConfig, // cdn配置
-            onlyCss: false //加载css
+            cdnConfig: utils.cdnConfig, // cdn配置
+            isExternalJs: utils.isExternalJs //是否加载js，prod下默认加载
         }),
         // keep module.id stable when vendor modules does not change
         new webpack.HashedModuleIdsPlugin(),
