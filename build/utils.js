@@ -120,15 +120,19 @@ css：css地址，是从版本号后面开始的，如：完整css cnd为 https:
 */
 const cdnConfig = [
     { name: 'vue', scope: 'Vue', js: 'vue.min.js' },
-    { name: 'vue-router', scope: 'VueRouter', js: 'vue-router.min.js' },
-    { name: 'axios', scope: 'axios', js: 'axios.min.js' },
     {
-        name: 'element-ui',
-        scope: 'ELEMENT',
-        js: 'index.js',
-        css: 'theme-chalk/index.css',
-        cndHttp: 'https://cdn.bootcss.com'
+        name: 'vue-router',
+        scope: 'VueRouter',
+        js: 'vue-router.min.js',
+        cndHttp: 'https://cdn.bootcss.com' // 当不使用默认的cnd镜像源时，可以配置这个
     }
+    // {
+    //     name: 'element-ui',
+    //     scope: 'ELEMENT',
+    //     js: 'index.js',
+    //     css: 'theme-chalk/index.css',
+    //     cndHttp: 'https://cdn.bootcss.com'
+    // }
 ]
 
 // 获取模块版本号

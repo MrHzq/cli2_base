@@ -66,6 +66,7 @@ module.exports = {
                             name: utils.assetsPath('img/[name].[hash:7].[ext]')
                         }
                     },
+                    // 图片压缩的
                     {
                         loader: 'image-webpack-loader',
                         options: {

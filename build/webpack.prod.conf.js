@@ -35,7 +35,11 @@ const webpackConfig = merge(baseWebpackConfig, {
         new UglifyJsPlugin({
             uglifyOptions: {
                 compress: {
-                    warnings: false
+                    warnings: false,
+                    // =====以下是新增的=====
+                    drop_console: true, // 删除页面中的 console.log
+                    pure_funcs: ['console.log']
+                    // =====以上是新增的=====
                 }
             },
             sourceMap: config.build.productionSourceMap,
@@ -73,6 +77,7 @@ const webpackConfig = merge(baseWebpackConfig, {
             },
             // necessary to consistently work with multiple chunks via CommonsChunkPlugin
             chunksSortMode: 'dependency',
+            // ===========以下是新增的===============
             cdnConfig: utils.cdnConfig, // cdn配置
             isExternalJs: utils.isExternalJs //是否加载js，prod下默认加载
         }),

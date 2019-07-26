@@ -7,7 +7,6 @@ const path = require('path')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const WebpackCdnPlugin = require('webpack-cdn-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
@@ -66,24 +65,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             filename: 'index.html',
             template: 'index.html',
             inject: true,
+            // 以下是新增的
             cdnConfig: utils.cdnConfig, // cdn配置
             isExternalJs: utils.isExternalJs //是否加载js，dev下默认不加载
         }),
-        // new WebpackCdnPlugin({
-        //     modules: [
-        //         {
-        //             name: 'vue',
-        //             var: 'Vue',
-        //             path: 'dist/vue.runtime.min.js'
-        //         },
-        //         {
-        //             name: 'vue-router',
-        //             var: 'VueRouter',
-        //             path: 'dist/vue-router.min.js'
-        //         }
-        //     ],
-        //     publicPath: '/node_modules'
-        // }),
         // copy custom static assets
         new CopyWebpackPlugin([
             {
