@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import autoRouter from 'vue-router-auto'
-// import HelloWorld from '@/components/HelloWorld'
 
 if (!window.VueRouter) Vue.use(Router)
 

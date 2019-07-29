@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
 import store from './store'
@@ -12,7 +10,7 @@ Vue.use(hzqTool, { router })
 
 Vue.config.productionTip = false
 const isTest = process.env.PATH_ENV === 'test'
-console.log(isTest)
+console.log('isTest：' + isTest)
 
 Vue.use(hzqAxios, require.context('@/apiurl', true, /\.js$/), {
     baseURL: '/api',
