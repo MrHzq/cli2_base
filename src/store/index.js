@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import mutations from './mutations.js'
-if (!window.VueRouter) Vue.use(Vuex)
+
+if (!window.Vuex) Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {

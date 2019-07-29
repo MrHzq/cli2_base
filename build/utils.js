@@ -130,7 +130,9 @@ const cdnConfig = [
         scope: 'VueRouter',
         js: 'vue-router.min.js',
         cndHttp: 'https://cdn.bootcss.com' // 当不使用默认的cnd镜像源时，可以配置这个
-    }
+    },
+    { name: 'vuex', scope: 'Vuex', js: 'vuex.min.js' }
+
     // {
     //     name: 'element-ui',
     //     scope: 'ELEMENT',
