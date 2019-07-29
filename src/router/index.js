@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import autoRouter from 'vue-router-auto'
 // import HelloWorld from '@/components/HelloWorld'
 
 if (!window.VueRouter) Vue.use(Router)
 
+const routes = autoRouter({
+    redirect: '/home',
+    rc: require.context('@/views', true, /\.vue$/)
+})
 export default new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'HelloWorld',
-            component: () => import('@/components/HelloWorld')
-        }
-    ]
+    mode: 'history',
+    routes
 })

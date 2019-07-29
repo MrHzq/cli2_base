@@ -10,7 +10,12 @@ module.exports = {
         // Paths
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-        proxyTable: {},
+        proxyTable: {
+            '/api': {
+                target: 'http://userweb.linshibin.com', // 接口域名
+                changeOrigin: true // 是否跨域
+            }
+        },
 
         // Various Dev Server settings
         host: ip, // can be overwritten by process.env.HOST

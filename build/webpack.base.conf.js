@@ -36,7 +36,12 @@ module.exports = {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             vue$: 'vue/dist/vue.esm.js',
-            '@': resolve('src')
+            '@': resolve('src'),
+            // ==============以下为新增的==============
+            assets: '@/assets',
+            components: '@/components'
+            // 等等...
+            // ==============以上为新增的==============
         }
     },
     module: {
