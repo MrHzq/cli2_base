@@ -2,7 +2,7 @@
  * @Author: hzq
  * @Date: 2019-07-29 11:38:28
  * @Last Modified by: hzq
- * @Last Modified time: 2019-07-29 14:36:07
+ * @Last Modified time: 2019-07-29 15:17:24
  * @文件说明: 首页
  */
 <template>
@@ -16,7 +16,9 @@
         <div class="div2">success</div>
         <div class="f24">使用scss循环生成的类名（.f12 ~ .f30）f代表：font-size</div>
         <div>{{$store.state.token}}</div>
-        <hello-world></hello-world>
+        <hello-world/>
+        <h-bgi/>
+        <h-hover>h-hover</h-hover>
     </div>
 </template>
 
