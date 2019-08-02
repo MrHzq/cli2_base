@@ -2,17 +2,16 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import router from './router'
-import hzqAxios from 'hzq-axios'
-import hzqTool from 'hzq-tool'
+import AxiosPlugin from 'axios-plugin'
+import VueToolPlugin from 'vue-tool-plugin'
 import './components/global'
 
-Vue.use(hzqTool, { router })
+Vue.use(VueToolPlugin, { router })
 
-Vue.config.productionTip = false
 const isTest = process.env.PATH_ENV === 'test'
 console.log('isTest：' + isTest)
 
-Vue.use(hzqAxios, require.context('@/apiurl', true, /\.js$/), {
+Vue.use(AxiosPlugin, require.context('@/apiurl', true, /\.js$/), {
     baseURL: '/api',
     // 请求拦截之前
     beforeRequest(config) {
@@ -28,6 +27,8 @@ Vue.use(hzqAxios, require.context('@/apiurl', true, /\.js$/), {
         console.log(e)
     }
 })
+
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({

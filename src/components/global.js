@@ -8,7 +8,7 @@ RC.keys().forEach(fileName => {
 
     // 因为得到的filename格式是: './baseButton.vue', 所以这里我们去掉头和尾，只保留真正的文件名
     let componentName = fileName.replace(/^\.\//, '').replace(/\.\w+$/, '')
-    let index = componentName.indexOf('/')
+    let index = componentName.lastIndexOf('/')
     if (index !== -1) componentName = componentName.substr(index + 1)
 
     Vue.component(componentName, componentConfig.default || componentConfig)

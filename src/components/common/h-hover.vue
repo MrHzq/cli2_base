@@ -2,7 +2,7 @@
  * @Author: hzq
  * @Date: 2019-02-12 09:43:50
  * @Last Modified by: hzq
- * @Last Modified time: 2019-07-12 10:13:17
+ * @Last Modified time: 2019-08-02 16:11:57
  * @文件说明: 灰色字体，移入手型、变蓝
  */
 <template>
@@ -48,7 +48,7 @@
                     ...this.$listeners,
                     click: () => {
                         this.$emit('click')
-                        if (this.to) this.$to(this.to)
+                        if (this.to) this.$tool.to(this.to)
                     }
                 }
             }

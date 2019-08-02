@@ -2,7 +2,7 @@
  * @Author: hzq
  * @Date: 2019-07-29 11:38:28
  * @Last Modified by: hzq
- * @Last Modified time: 2019-07-29 15:17:24
+ * @Last Modified time: 2019-08-02 16:15:16
  * @文件说明: 首页
  */
 <template>
@@ -33,68 +33,13 @@
             const b = { name: '12' }
             const a = this.$tool.copy(b)
             console.log(a)
-            console.log(this.$to)
-            this.$setItem('id', '111111')
+            console.log(this.$tool.to)
+            console.log(this.$tool.fdate())
+            console.log(this.$tool.fprice(1259465))
+            this.$tool.setItem('id', '111111')
             this.GetImageCaptcha()
         },
         methods: {
-            needarr() {
-                setTimeout(() => {
-                    this.$store.commit('save', ['token', 'token2'])
-                }, 5000)
-                // 原始数据
-                const oldarr = [
-                    {
-                        id: 2,
-                        parentId: 1,
-                        child: []
-                    },
-                    {
-                        id: 3,
-                        parentId: 1,
-                        child: []
-                    },
-                    {
-                        id: 4,
-                        parentId: 1,
-                        child: []
-                    },
-                    {
-                        id: 1,
-                        parentId: null,
-                        child: []
-                    },
-                    {
-                        id: 89,
-                        parentId: 10,
-                        child: []
-                    },
-                    {
-                        id: 10,
-                        parentId: null,
-                        child: []
-                    }
-                ]
-                // 需要的数据
-                const needarr = []
-                oldarr.map(o => {
-                    if (o.parentId) {
-                        // 通过 子级的 parentId，在 needarr 查找 父级
-                        const fobj = needarr.find(n => n.id === o.parentId)
-                        if (fobj) fobj.child.push(o)
-                        else {
-                            // 未找到父级，则再通过子级的 parentId，在 oldarr 查找 父级
-                            const fobj = oldarr.find(n => n.id === o.parentId)
-                            fobj.child.push(o)
-                            needarr.push(fobj)
-                        }
-                    } else {
-                        const isInNeedarr = !!needarr.find(n => n.id === o.id)
-                        if (!isInNeedarr) needarr.push(o)
-                    }
-                })
-                console.log(needarr)
-            },
             GetImageCaptcha() {
                 this.$api.GetImageCaptcha().then(res => {
                     if (res.code === 1) {
